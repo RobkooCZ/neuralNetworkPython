@@ -1,3 +1,5 @@
+from math import sqrt # import the square root function from the math module
+
 def checkForNumbers(numbers): # simple function to check if a list contains numbers
     if not numbers:
         print("The list must contain at least one number.")
@@ -6,6 +8,8 @@ def checkForNumbers(numbers): # simple function to check if a list contains numb
         if not isinstance(number, (int, float)):
             print("The list must contain only numbers.")
             return False
+    
+    return True
     
 def countNumbers(numbers): # simple function to count how many numbers there are in a list
     numbersCheck: bool = checkForNumbers(numbers)
@@ -33,14 +37,17 @@ def bubbleSort(numbers): # simple bubble sort algorithm to sort a **SMALL** list
     return numbers
 
 def mean(numbers): # Function for calculate the mean value of a list of numbers
-    answer: float = 0
+    addedNumbers: float = 0
     numberCount: int = countNumbers(numbers)
     numbersCheck: bool = checkForNumbers(numbers)
     
     if not numbersCheck:
         return False
     
-    return answer / numberCount
+    for number in numbers:
+        addedNumbers += number
+
+    return addedNumbers / numberCount
 
 def median(numbers): # function to find the median of a list of numbers
     numbersCheck: bool = checkForNumbers(numbers)
@@ -82,3 +89,35 @@ def mode(numbers): # function to find the mode of a list of numbers
             mostAppearedNumber = number
 
     return mostAppearedNumber
+
+def standardDeviation(numbers): # function to find the standard deviation of a list of numbers
+    numbersCheck: bool = checkForNumbers(numbers)
+    numberCount: int = countNumbers(numbers)
+    meanValue: float = mean(numbers)
+    sigma: float = 0
+
+    if not numbersCheck:
+        return False
+    
+    for number in numbers:
+        sigma += (number - meanValue) ** 2
+
+    sigma /= numberCount
+
+    return sqrt(sigma)
+
+def variation(numbers):
+    numbersCheck: bool = checkForNumbers(numbers)
+    numberCount: int = countNumbers(numbers)
+    meanValue: float = mean(numbers)
+    variation: float = 0
+
+    if not numbersCheck:
+        return False
+    
+    for number in numbers:
+        variation += (number - meanValue) ** 2
+
+    variation /= numberCount
+
+    return variation
