@@ -121,3 +121,21 @@ def variation(numbers):
     variation /= numberCount
 
     return variation
+
+def percentile(numbers, percent):
+    numbersCheck: bool = checkForNumbers(numbers)
+    numberCount: int = countNumbers(numbers)
+
+    if not numbersCheck or numberCount == 0:
+        return False
+    
+    numbers = bubbleSort(numbers)  # Sort the list
+    rank = (percent / 100) * (numberCount)  # Calculate the rank of the percentile
+
+    # Adjust the rank for 0-based index
+    index = int(rank)
+
+    if index == rank:  # If rank is an integer, return that value
+        return numbers[index - 1]  # Subtract 1 for 0-based index
+    else:  # If rank is not an integer, return the value at floor(rank)
+        return numbers[index]  # This gives the next highest value
