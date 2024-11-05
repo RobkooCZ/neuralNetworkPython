@@ -1,7 +1,8 @@
 from math import sqrt # import the square root function from the math module
+from sortingAlgorithms import bubbleSort # import the bubble sort function from the algorithm file
 
-def checkForNumbers(numbers): # simple function to check if a list contains numbers
-    if not numbers:
+def checkForNumbers(numbers: list, checkNumberCount: bool) -> bool: # simple function to check if a list contains numbers
+    if not numbers and checkNumberCount:
         print("The list must contain at least one number.")
         return False
     for number in numbers:
@@ -11,11 +12,10 @@ def checkForNumbers(numbers): # simple function to check if a list contains numb
     
     return True
     
-def countNumbers(numbers): # simple function to count how many numbers there are in a list
-    numbersCheck: bool = checkForNumbers(numbers)
+def countNumbers(numbers: list) -> int: # simple function to count how many numbers there are in a list
     numberCount: int = 0
 
-    if not numbersCheck:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     for number in numbers:
@@ -23,25 +23,11 @@ def countNumbers(numbers): # simple function to count how many numbers there are
 
     return numberCount
 
-def bubbleSort(numbers): # simple bubble sort algorithm to sort a **SMALL** list (because of the time complexity)
-    numbersCheck: bool = checkForNumbers(numbers)
-    length: int = countNumbers(numbers)
-
-    if not numbersCheck:
-        return False
-    
-    for i in range(length):
-        for j in range(0, length - i - 1):
-            if numbers[j] > numbers[j + 1]:
-                numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
-    return numbers
-
-def mean(numbers): # Function for calculate the mean value of a list of numbers
+def mean(numbers: list) -> float: # Function for calculate the mean value of a list of numbers
     addedNumbers: float = 0
     numberCount: int = countNumbers(numbers)
-    numbersCheck: bool = checkForNumbers(numbers)
     
-    if not numbersCheck:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     for number in numbers:
@@ -49,12 +35,11 @@ def mean(numbers): # Function for calculate the mean value of a list of numbers
 
     return addedNumbers / numberCount
 
-def median(numbers): # function to find the median of a list of numbers
-    numbersCheck: bool = checkForNumbers(numbers)
+def median(numbers: list) -> float: # function to find the median of a list of numbers
     numbersCount: int = countNumbers(numbers)
     numbers: list = bubbleSort(numbers)
 
-    if not numbersCheck:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     if numbersCount % 2 == 0:
@@ -65,10 +50,8 @@ def median(numbers): # function to find the median of a list of numbers
         median = numbers[numbersCount // 2]
     return median
     
-def mode(numbers): # function to find the mode of a list of numbers
-    numbersCheck: bool = checkForNumbers(numbers)  # Check if all elements are numbers
-
-    if not numbersCheck:
+def mode(numbers: list) -> float: # function to find the mode of a list of numbers
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     frequency = {}  # Dictionary to store each number and its frequency
@@ -90,13 +73,12 @@ def mode(numbers): # function to find the mode of a list of numbers
 
     return mostAppearedNumber
 
-def standardDeviation(numbers): # function to find the standard deviation of a list of numbers
-    numbersCheck: bool = checkForNumbers(numbers)
+def standardDeviation(numbers: list) -> float: # function to find the standard deviation of a list of numbers
     numberCount: int = countNumbers(numbers)
     meanValue: float = mean(numbers)
     sigma: float = 0
 
-    if not numbersCheck:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     for number in numbers:
@@ -106,13 +88,12 @@ def standardDeviation(numbers): # function to find the standard deviation of a l
 
     return sqrt(sigma)
 
-def variation(numbers):
-    numbersCheck: bool = checkForNumbers(numbers)
+def variation(numbers: list) -> float: # function to find the variation of a list of numbers
     numberCount: int = countNumbers(numbers)
     meanValue: float = mean(numbers)
     variation: float = 0
 
-    if not numbersCheck:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     for number in numbers:
@@ -122,11 +103,10 @@ def variation(numbers):
 
     return variation
 
-def percentile(numbers, percent):
-    numbersCheck: bool = checkForNumbers(numbers)
+def percentile(numbers: list, percent: int) -> float: # function to find the percentile of a list of numbers
     numberCount: int = countNumbers(numbers)
 
-    if not numbersCheck or numberCount == 0:
+    if not checkForNumbers(numbers, True):  # Ensure the input is valid
         return False
     
     numbers = bubbleSort(numbers)  # Sort the list
